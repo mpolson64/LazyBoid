@@ -1,8 +1,19 @@
 import { next } from './Engine'
+import { tuple } from '../util'
 
 test('next on empty does not mutate', () => {
+    const boid = {
+        position: tuple(0, 0),
+        velocity: tuple(0, 1),
+    };
+
     const world = {
-        boids: [],
+        boids: [
+            boid,
+            boid,
+            boid,
+            boid,
+        ],
         lookAngle: 0,
         lookRadius: 0,
     };
@@ -17,30 +28,26 @@ test('next on empty does not mutate', () => {
 
 
 test('next on single boid', () => {
-    const position: [number, number] = [0, 0];
-    const velocity: [number, number] = [1, 0];
-    const boid = {
-        position,
-        velocity,
-    };
-
     const world = {
-        boids: [boid],
+        boids: [
+            {
+                position: tuple(0, 0),
+                velocity: tuple(1, 0),
+            }
+        ],
         lookAngle: 0,
         lookRadius: 0,
     };
 
     const nextWorld = next(world);
     const nextNextWorld = next(nextWorld);
-    const nextBoid = nextWorld.boids[0];
-    const nextNextBoid = nextNextWorld.boids[0];
 
-    expect(boid.velocity).toEqual([1, 0]);  // velocity should not change
-    expect(boid.position).toEqual([0, 0]);  // should move 1 to the right
+    expect(world.boids[0].velocity).toEqual([1, 0]);  // velocity should not change
+    expect(world.boids[0].position).toEqual([0, 0]);  // should move 1 to the right
 
-    expect(nextBoid.velocity).toEqual([1, 0]);  // velocity should not change
-    expect(nextBoid.position).toEqual([1, 0]);  // should move 1 to the right
+    expect(nextWorld.boids[0].velocity).toEqual([1, 0]);  // velocity should not change
+    expect(nextWorld.boids[0].position).toEqual([1, 0]);  // should move 1 to the right
 
-    expect(nextNextBoid.velocity).toEqual([1, 0]);  // velocity should not change
-    expect(nextNextBoid.position).toEqual([2, 0]);  // should move 1 to the right
+    expect(nextNextWorld.boids[0].velocity).toEqual([1, 0]);  // velocity should not change
+    expect(nextNextWorld.boids[0].position).toEqual([2, 0]);  // should move 1 to the right
 });
