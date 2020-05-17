@@ -53,3 +53,16 @@ test('average velocity', () => {
     expect(util.averageVelocity([first, second])).toEqual([2, 16]);
     expect(util.averageVelocity([first, second, third])).toEqual([26 / 3, 11]);
 });
+
+test('turn towards vector', () => {
+    const a = tuple(1, 3);
+    const b = tuple(2, 7);
+
+    const turned = util.turnTowardsVector(a, b);
+
+    expect(Math.sqrt(turned[0] ** 2 + turned[1] ** 2)).toBeCloseTo(Math.sqrt(b[0] ** 2 + b[1] ** 2));   // turning should not change magnitude
+
+    // angle between a and turned should be less than that between a and b
+    const angleBetween = (a: [number, number], b: [number, number]) => Math.atan2(b[1], b[0]) - Math.atan2(a[1], a[0]);
+    expect(angleBetween(a, turned)).toBeLessThanOrEqual(angleBetween(a, b));
+});
