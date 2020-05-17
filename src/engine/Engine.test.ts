@@ -1,13 +1,14 @@
 import { next } from './Engine'
 
 test('next', () => {
+    const position: [number, number] = [0, 0];
+    const velocity: [number, number] = [0, 0];
+
     const world = {
         boids: [
             {
-                positionX: 0,
-                positionY: 0,
-                velocityX: 0,
-                velocityY: 0,
+                position,
+                velocity,
             }
         ],
         lookAngle: 0,

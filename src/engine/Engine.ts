@@ -1,6 +1,7 @@
+import { Boid } from '../types/Boid'
 import { World } from '../types/World'
 
-function next(world: World): World {
+export function next(world: World): World {
     const nextBoids = world.boids.map(boid => boid)
 
     return {
@@ -9,5 +10,3 @@ function next(world: World): World {
         lookRadius: world.lookRadius
     };
 }
-
-export { next }

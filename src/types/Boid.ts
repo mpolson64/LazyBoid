@@ -1,7 +1,4 @@
 export interface Boid {
-    positionX: number;
-    positionY: number;
-
-    velocityX: number;
-    velocityY: number;
+    position: [number, number];
+    velocity: [number, number];
 }
